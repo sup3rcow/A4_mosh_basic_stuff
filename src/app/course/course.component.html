@@ -1,0 +1,44 @@
+<div class="row">
+    <div style="background:green" class="col-xs-6">
+        <h4>{{ title }} - string iterpolation 1.nacin</h4>
+        <h4 [textContent]="title + ' - property binding 2.nacin(mapiras na propertije od DOM-a a ne na atribut HTML objekta)'"></h4>
+        <button class="btn btn-primary" [class.active]="isActive">bootstrap - class binding</button>               
+        <button class="btn btn-danger" (click)="onSave($event)">event binding</button> 
+        <input (keyup)="onKeyUp($event)" placeholder="event filtering - los nacin" />              
+        <input (keyup.enter)="onKeyUp2($event)" placeholder="event filtering - ok1 nacin" />              
+        <input #mojavarijabla (keyup.enter)="onKeyUp3(mojavarijabla.value)" placeholder="event filtering - ok2 nacin" />              
+        
+        <p>2 way binding - ne ovako</p>
+        <input [value]="email" (keyup.enter)="email = $event.target.value; onKeyUp4()" />    
+        <p>2 way binding - OVAKO!!!!!(u app.modules moras inportati formsModelues)</p>
+        <input [(ngModel)]="email" (keyup.enter)="onKeyUp4()" /> 
+        <table>
+            <tr [style.backgroundColor]="isActive ? 'gray' : 'white'">
+             <td [attr.colspan] = "colSpan">property binding 2.nacin(mapiras na HTML atribut)</td>
+            </tr>
+        </table> 
+        <img src="{{ imageUrl }}" />
+        <img [src]="imageUrl" />           
+    </div>
+    <div class="col-xs-6">
+        <ul>
+            <li *ngFor="let course of courses">
+              {{course}}
+            </li>
+          </ul>
+          <div style="background:yellow">
+            <p>Pipes - format data</p>
+           {{ course.title | lowercase | uppercase}} <br/>
+           {{ course.rating | number:'1.2-2' }} <br/>
+           {{ course.students | number }} <br/>
+           {{ course.price | currency:'AUD':true:'1.2-2' }} <br/>
+           {{ course.releaseDate | date:'shortDate' }} <br/>
+           {{ course.text | summary:'55' }} <br/>
+          </div>
+          <p>Vjezbe</p>
+          <input [(ngModel)]="titleOfThe" /><br/>
+          {{ titleOfThe | titleCase }}
+    </div>
+</div>
+
+
