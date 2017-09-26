@@ -24,14 +24,19 @@ export class AppComponent {
 
   viewMode = 'map';
 
-  coursesFor = [
-    {id: 1, name: 'course1ngFor'},
-    {id: 2, name: 'course2ngFor'},
-    {id: 3, name: 'course3ngFor'}
-  ];
+  coursesFor; // ucitas sa "servera"
+
+  isButtonBlue = true;
+
+  task = {
+    title: 'Review applications',
+    assignee: {
+      name: 'John Smith'
+    }
+  };
 
   onFavoriteChanged(eventArgs: FavoriteChangedEventArgs) {
-    console.log('changeddd ' + eventArgs);
+    console.log('changeddd ' + eventArgs.newValue);
   }
   onAdd() {
     const random = Math.floor(Math.random() * 100) + 100; // br izmedju 100 i 200
@@ -43,6 +48,18 @@ export class AppComponent {
   }
   onChange(c) {
     c.name = 'changed(direk mijenjas property value na ulaznom parametru functiona)';
+  }
+
+  loadCourses() {
+    this.coursesFor = [
+      {id: 1, name: 'course1ngFor'},
+      {id: 2, name: 'course2ngFor'},
+      {id: 3, name: 'course3ngFor'}
+    ];
+  }
+
+  trackCourse(index, course) {
+    return course ? course.id : undefined;
   }
 
 }

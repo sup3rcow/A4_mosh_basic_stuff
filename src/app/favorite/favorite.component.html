@@ -1,6 +1,15 @@
-<span [class.glyphicon-star]="isSelected"
-  [class.glyphicon-star-empty]="!isSelected"
+<span 
+  [ngClass]="{
+    'glyphicon-star': isSelected,
+    'glyphicon-star-empty': !isSelected
+  }"
   (click)="onClick()"
   class="glyphicon">
-  Click me!
+  Click me!..i ngClass
 </span>
+<!--
+  ..[ngClass] attribute direktiva je zamijenila:
+  [class.glyphicon-star]="isSelected"
+  [class.glyphicon-star-empty]="!isSelected"
+
+-->

@@ -1,5 +1,5 @@
 <h3>Angular - {{ title }}</h3>
-<app-favorite [isFavorite]="post.isFavorite" (change)="onFavoriteChanged($event)"></app-favorite>
+<app-favorite [isFavorite]="post.isFavorite" (change12)="onFavoriteChanged($event)"></app-favorite>
 <br/>
 <app-like [isActive]="tweet.isLiked" [likesCount]="tweet.likesCount"></app-like>
 <div *ngIf="courses.length > 0; then coursesList else noCourses"></div>
@@ -25,11 +25,32 @@
 </div>
 <br/>
 <p>ngFor</p>
+<button (click)="loadCourses()" 
+class="btn"
+[ngStyle]="{
+    'backgroundColor': isButtonBlue ? 'blue': 'gray',
+    'color': isButtonBlue ? 'white': 'black',
+    'fontWeight': isButtonBlue ? 'bold': 'normal'
+}"
+>
+Load courses from "server".. i ngStyle
+</button>
+<p>u *ngFor dodas trackBy, i delegiras funkciju, koja refresha elemente u DOM-u na osnovi id-a a ne objekta u memoriji.</p>
+<p>ako ne radis sa trackBy, tad se na svaki klik buttona kreira ispocetka dio DOM-a, ovo koristi samo kad imas hrpu podataka za osvjeziti</p>
+<br/>
 <button class="btn" (click)="onAdd()">add random(100-200) - angular ima change detection</button>
 <ul>
-    <li *ngFor="let c of coursesFor; index as i;even as isEven">
+    <li *ngFor="let c of coursesFor; index as i;even as isEven; trackBy: trackCourse">
         <button class="btn" (click)="onRemove(c)">Remove</button>
         <button class="btn" (click)="onChange(c)">Change</button>
         name:{{ c.name }} - id:{{ c.id }} - index:{{ i }}<span *ngIf="isEven">(Parni index)</span>
     </li>
 </ul>
+<br/>
+<span>{{ task.assignee?.name }} - safe traversal operator "?" ako je null angular zanemari da trena ispisati task.assignee?.name</span>
+<!--
+    ngStyle attribute direkttiva je zamijenila:
+    [style.backgroundColor]="isButtonBlue ? 'blue': 'gray'"
+    [style.color]="isButtonBlue ? 'white': 'black'"
+    [style.fontWeight]="isButtonBlue ? 'bold': 'normal'"
+-->
