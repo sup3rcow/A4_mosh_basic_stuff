@@ -1,17 +1,17 @@
 .app-zippy {
     border: 1px solid #ccc;
     border-radius: 2px;
-    width: 20%;
+    width: 180px;
 }
 
 .app-zippy-heading {
     font-weight: bold;
-    padding: 20px;
+    padding: 10px;
     cursor: pointer;
 }
 
 .app-zippy-body {
-    padding: 20px;
+    padding: 10px;
 }
 
 .expanded {

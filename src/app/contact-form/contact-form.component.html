@@ -1,0 +1,40 @@
+<form>
+  <div class="form-group">
+      <label for="firstName">First Name</label>
+      <!--
+        ngModel name="firstName" - mora ici skupa, tj da daš inputu name properti, jer unutar form-group imas vise form-control-a
+        #firstName="ngModel" (change)="log(firstName)" - kreiras referencu na ngModel i saljes ga kao parameta u event funkciji
+
+      -->
+      <input 
+        required 
+        minlength="3" 
+        maxlength="10" 
+        pattern="banana" 
+        ngModel 
+        name="firstName"
+        #firstName="ngModel" 
+        (change)="log(firstName)" 
+        id="firstName" 
+        class="form-control" 
+        type="text"> 
+      <div 
+        class="alert alert-danger" 
+        *ngIf="firstName.touched && !firstName.valid">
+        <div *ngIf="firstName.errors.required">
+          First name is required
+        </div>
+        <div *ngIf="firstName.errors.minlength">
+          First name min {{ firstName.errors.minlength.requiredLength }} chatacters
+        </div>
+        <div *ngIf="firstName.errors.pattern && !firstName.errors.minlength">
+          First name doesn't match the pattern: {{ firstName.errors.pattern.requiredPattern }}
+        </div>
+      </div>
+  </div>
+  <div class="form-group">
+    <label for="comment">Comment</label>
+    <textarea ngModel name="comment" class="form-control" id="comment" cols="30" rows="3"></textarea>
+  </div>
+  <button class="btn btn-primary">Submit</button>
+</form>
