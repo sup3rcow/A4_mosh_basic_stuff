@@ -1,0 +1,23 @@
+.app-zippy {
+    border: 1px solid #ccc;
+    border-radius: 2px;
+    width: 20%;
+}
+
+.app-zippy-heading {
+    font-weight: bold;
+    padding: 20px;
+    cursor: pointer;
+}
+
+.app-zippy-body {
+    padding: 20px;
+}
+
+.expanded {
+    background-color: #f0f0f0;
+}
+
+.glyphicon {
+    float: right;
+}

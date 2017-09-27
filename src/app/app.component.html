@@ -54,3 +54,19 @@ Load courses from "server".. i ngStyle
     [style.color]="isButtonBlue ? 'white': 'black'"
     [style.fontWeight]="isButtonBlue ? 'bold': 'normal'"
 -->
+<br/>
+<br/>
+<p>custom directive</p>
+<!--
+<input type="text" appInputFormat [format]="'phoneNumber'">
+mozes pisati čišće ako imas samo jedan property: ali onda u direktivi kao input alias pises naziv direktive
+-->
+<input type="text" [appInputFormat]="'uppercase'">
+<br/>
+<p>zadatak zippy component:></p>
+<app-zippy title="Shipping details">
+    Shipping details content
+</app-zippy>
+<app-zippy title="Billing details">
+    Billing details content
+</app-zippy>

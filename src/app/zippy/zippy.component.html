@@ -1,0 +1,19 @@
+<div class="app-zippy">
+  <div 
+  class="app-zippy-heading"
+  [class.expanded]="isExpanded"
+  (click)="toggle()"
+  >
+    {{ title }}
+    <span
+    class="glyphicon"
+    [ngClass]="{
+      'glyphicon-menu-up': isExpanded,
+      'glyphicon-menu-down': !isExpanded
+    }"
+    ></span>
+  </div>
+  <div class="app-zippy-body" *ngIf="isExpanded">
+    <ng-content></ng-content><!--ovako ubaci content iz vana-->
+  </div>
+</div>
