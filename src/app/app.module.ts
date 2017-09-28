@@ -12,6 +12,8 @@ import { LikeComponent } from './like/like.component';
 import { InputFormatDirective } from './input-format.directive';
 import { ZippyComponent } from './zippy/zippy.component';
 import { ContactFormComponent } from './contact-form/contact-form.component';
+import { NewCourseFormComponent } from './new-course-form/new-course-form.component';
+import { SignupFormComponent } from './signup-form/signup-form.component';
 
 
 
@@ -25,8 +27,10 @@ import { ContactFormComponent } from './contact-form/contact-form.component';
     LikeComponent,
     InputFormatDirective,
     ZippyComponent,
-    ContactFormComponent
-  ],
+    ContactFormComponent,
+    NewCourseFormComponent,
+    SignupFormComponent
+    ],
   imports: [
     BrowserModule,
     FormsModule
