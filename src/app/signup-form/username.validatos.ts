@@ -12,10 +12,16 @@ export class UsernameValidators {
         return null;
     }
 
-    static isUsernameNotUnique (control: AbstractControl): ValidationErrors | null {
-        if ((control.value as string).toLowerCase() === 'mosh') {
-            return { isUsernameNotUnique: true };
-        }
-        return null;
+    static isUsernameNotUnique (control: AbstractControl): Promise<ValidationErrors | null> {
+
+        return new Promise((resolve, reject) => {
+            setTimeout(() => {
+                if ((control.value as string).toLowerCase() === 'mosh') {
+                    resolve({ isUsernameNotUnique: true});
+                } else {
+                    resolve(null);
+                }
+            }, 2000);
+        });
     }
 }

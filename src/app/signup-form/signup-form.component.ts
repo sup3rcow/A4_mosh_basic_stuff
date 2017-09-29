@@ -12,14 +12,21 @@ export class SignupFormComponent {
     username: new FormControl('', [
       Validators.required,
       Validators.minLength(3),
-      UsernameValidators.cannotContainSpace,
-      UsernameValidators.isUsernameNotUnique
-    ]),
+      UsernameValidators.cannotContainSpace
+    ],
+    UsernameValidators.isUsernameNotUnique
+  ),
     password: new FormControl('', Validators.required),
+
   });
 
-  submit (x) {
+  login (x) {
     console.log(x);
+
+    const isValid = false; // authService(this.form.value);
+    if (!isValid) {
+      this.form.setErrors({invalidLogin: true});
+    }
   }
 
   // pomocu ovog propertija,
