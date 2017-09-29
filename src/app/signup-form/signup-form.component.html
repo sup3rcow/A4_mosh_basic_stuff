@@ -1,14 +1,22 @@
-<form>
+<form [formGroup]="form" #f="ngForm" (ngSubmit)="submit(f)">
     <div class="form-group">
         <label for="username">Username</label>
         <input 
+            formControlName="username"
             id="username" 
             type="text" 
             class="form-control">
+            <div *ngIf="username.touched && username.invalid" class="alert alert-danger">
+                <div *ngIf="username.errors.required">Username is required.</div>
+                <div *ngIf="username.errors.minlength">Username should be minimum {{username.errors.minlength.requiredLength}} charachters.</div>
+                <div *ngIf="username.errors.cannotContainSpace">Username should not contain white spaces</div>
+                <div *ngIf="username.errors.isUsernameNotUnique">Username is not unique</div>
+            </div>
     </div>
     <div class="form-group">
         <label for="password">Password</label>
         <input 
+            formControlName="password"
             id="password" 
             type="text" 
             class="form-control">
