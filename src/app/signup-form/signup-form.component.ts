@@ -9,15 +9,16 @@ import { UsernameValidators } from './username.validatos';
 })
 export class SignupFormComponent {
   form = new FormGroup({
-    username: new FormControl('', [
-      Validators.required,
-      Validators.minLength(3),
-      UsernameValidators.cannotContainSpace
-    ],
-    UsernameValidators.isUsernameNotUnique
-  ),
-    password: new FormControl('', Validators.required),
-
+    // ovako radis podgrupu unutar glavne grupe - forma
+    account: new FormGroup({
+      username: new FormControl('', [
+        Validators.required,
+        Validators.minLength(3),
+        UsernameValidators.cannotContainSpace
+        ],
+        UsernameValidators.isUsernameNotUnique),
+      password: new FormControl('', Validators.required),
+    })
   });
 
   login (x) {
@@ -33,6 +34,6 @@ export class SignupFormComponent {
   // iz html-a *ngIf ima pristup username objektu,
   // pa ne moras tamo pisati form.get..
   get username () {
-    return this.form.get('username');
+    return this.form.get('account.username');
   }
 }

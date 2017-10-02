@@ -1,0 +1,13 @@
+<form>
+ <input 
+    type="text" class="form-control"
+    #topic
+    (keyup.enter)="addTopic(topic)"><!--tu ne moras 2way binding, nego samo napravis referencu #topic-->
+  <ul class="list-group">
+        <li class="list-group-item"       
+        *ngFor="let topic of topics.controls"
+        (click)=removeTopic(topic)><!--ovako pristupis svi topicsima,'controls' je properti koji ih sadrzi-->  
+          {{ topic.value }}
+        </li>
+  </ul>
+</form>

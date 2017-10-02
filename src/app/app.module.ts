@@ -14,6 +14,8 @@ import { ZippyComponent } from './zippy/zippy.component';
 import { ContactFormComponent } from './contact-form/contact-form.component';
 import { NewCourseFormComponent } from './new-course-form/new-course-form.component';
 import { SignupFormComponent } from './signup-form/signup-form.component';
+import { NewCourseFormArrayComponent } from './new-course-form-array/new-course-form-array.component';
+import { ChangePasswordComponent } from './change-password/change-password.component';
 
 
 
@@ -29,7 +31,9 @@ import { SignupFormComponent } from './signup-form/signup-form.component';
     ZippyComponent,
     ContactFormComponent,
     NewCourseFormComponent,
-    SignupFormComponent
+    SignupFormComponent,
+    NewCourseFormArrayComponent,
+    ChangePasswordComponent
     ],
   imports: [
     BrowserModule,
