@@ -1,3 +1,4 @@
+import { HttpModule } from '@angular/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
@@ -16,6 +17,7 @@ import { NewCourseFormComponent } from './new-course-form/new-course-form.compon
 import { SignupFormComponent } from './signup-form/signup-form.component';
 import { NewCourseFormArrayComponent } from './new-course-form-array/new-course-form-array.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
+import { PostsComponent } from './posts/posts.component';
 
 
 
@@ -33,12 +35,15 @@ import { ChangePasswordComponent } from './change-password/change-password.compo
     NewCourseFormComponent,
     SignupFormComponent,
     NewCourseFormArrayComponent,
-    ChangePasswordComponent
+    ChangePasswordComponent,
+    PostsComponent
     ],
   imports: [
     BrowserModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpModule // importas kako bi mogao pozivati rest http servise, import modul, a on ima definirane provajdere za DI
+               // pa ne moras nista deifnirati dole u providers
   ],
   providers: [
     CourseService
