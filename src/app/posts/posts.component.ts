@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Http } from '@angular/http';
 
 @Component({
@@ -6,12 +6,17 @@ import { Http } from '@angular/http';
   templateUrl: './posts.component.html',
   styleUrls: ['./posts.component.css']
 })
-export class PostsComponent {
+export class PostsComponent implements OnInit {
   posts: any[];
   private url = 'https://jsonplaceholder.typicode.com/posts';
 
   constructor(private http: Http) { // dodas keyword private i parametar postaje prvivate field i mozes ga koristiti unutar klase
-    http.get(this.url)
+
+  }
+
+  // pozivas servis kada se inicijalizira komponenta i potrebni su podaci, ne redi ovo unutar konstruktora
+  ngOnInit() {
+    this.http.get(this.url)
     .subscribe((response => {
      this.posts = response.json();
     }));
