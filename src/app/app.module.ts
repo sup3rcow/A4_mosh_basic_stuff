@@ -18,6 +18,7 @@ import { SignupFormComponent } from './signup-form/signup-form.component';
 import { NewCourseFormArrayComponent } from './new-course-form-array/new-course-form-array.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { PostsComponent } from './posts/posts.component';
+import { PostService } from './services/post.service';
 
 
 
@@ -46,7 +47,8 @@ import { PostsComponent } from './posts/posts.component';
                // pa ne moras nista deifnirati dole u providers
   ],
   providers: [
-    CourseService
+    CourseService,
+    PostService
   ],
   bootstrap: [AppComponent]
 })
