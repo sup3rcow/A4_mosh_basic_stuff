@@ -1,7 +1,7 @@
 import { HttpModule } from '@angular/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { NgModule } from '@angular/core';
+import { NgModule, ErrorHandler } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { CourseComponent } from './course/course.component';
@@ -19,6 +19,7 @@ import { NewCourseFormArrayComponent } from './new-course-form-array/new-course-
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { PostsComponent } from './posts/posts.component';
 import { PostService } from './services/post.service';
+import { AppErrorHandler } from './common/app-error-handler';
 
 
 
@@ -47,8 +48,9 @@ import { PostService } from './services/post.service';
                // pa ne moras nista deifnirati dole u providers
   ],
   providers: [
-    CourseService,
-    PostService
+    CourseService, // registriras DI
+    PostService,
+    { provide: ErrorHandler, useClass: AppErrorHandler } // postavis AppErrorHandler da bude globalni error handler
   ],
   bootstrap: [AppComponent]
 })
