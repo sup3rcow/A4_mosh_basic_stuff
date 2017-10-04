@@ -26,7 +26,7 @@ export class PostsComponent implements OnInit {
       }
       // ,
       // error => {                        // ne treba ti jer si prebacio da ovo radi globalni AppErrorHandler
-      //   appErrorHandler.handleError(error);
+      //   throw error;
       // }
     );
     }
@@ -63,25 +63,24 @@ export class PostsComponent implements OnInit {
     // this.http.post(this.url, JSON.stringify(data)); // patch updejta samo dio proprtija, dok put sve
     this.service.updatePost(data)
     .subscribe(
-      response => {
+      (response: Response) => {
         console.log(response.json());
       },
       (error: AppError) => {
         if (error instanceof NotFoundError) {
           alert('This post do not exsist on the server. - update');
         } else {
-          // alert('Unexpected error occured.');
-          // console.log(error);
           throw error;
         }
       });
     }
 
   deletePost(data) {
+    console.log(data);
     this.service.deletePost(data.id)
     .subscribe(
-      response => {
-        console.log(response.json());
+      (response: Response) => {
+        console.log(response.status);
         let index = this.posts.indexOf(data);
         this.posts.splice(index, 1);
       },
@@ -95,4 +94,4 @@ export class PostsComponent implements OnInit {
         }
       });
     }
-  }
+}

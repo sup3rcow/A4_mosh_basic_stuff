@@ -18,41 +18,37 @@ export class PostService {
   }
 
   getPosts() {
-    return this.http.get(this.url);
+    return this.http.get(this.url)
+    // tu ne moras ovo, jer ne ocekujes greske, jer global errorhendler smo zamijenili sa AppErrorHandler..
+    .catch(this.handleError);
   }
 
   createPost(data) {
     return this.http.post(this.url, JSON.stringify(data))
-    .catch((error: Response) => {
-      if (error.status === 400) {
-        return Observable.throw(new BadInputError());
-      } else {
-        return Observable.throw(new AppError(error));
-      }
-    });
+    .catch(this.handleError);
   }
 
   updatePost(data) {
     return this.http.patch(this.url + '/' + data.id, JSON.stringify({ isRead: true }))
-    .catch((error: Response) => {
-      if (error.status === 404) {
-        return Observable.throw(new NotFoundError());
-      }
-      return Observable.throw(new AppError(error));
-    });
+    .catch(this.handleError);
   }
 
   deletePost(id) {
     return this.http.delete(this.url + '/' + id)
-    .catch((error: Response) => {
-      if (error.status === 404) {
-        return Observable.throw(new NotFoundError()); // ne saljemo originalni error, jer ne zelimo ovaj error logirati
-      } else {
-        return Observable.throw(new AppError(error));
-        // return nesmije biti tipa 'Response', kreirao si app-error.ts, koja predstavlja model naseg error objekta
-        // dobra praksa je da unutar naseg error-a inkludas i originalni error, kako bi je mogli logirati na serveru kasnije
-      }
-    });
+    .catch(this.handleError);
+  }
+
+  private handleError(error: Response) {
+    if (error.status === 400) {
+      return Observable.throw(new BadInputError());
+    }
+    if (error.status === 404) {
+      return Observable.throw(new NotFoundError()); // ne saljemo originalni error, jer ne zelimo ovu gresku logirati
+    } else {
+      return Observable.throw(new AppError(error));
+      // return nesmije biti tipa 'Response', kreirao si app-error.ts, koja predstavlja model naseg error objekta
+      // dobra praksa je da unutar naseg error-a includeati i originalni error, kako bi je mogli logirati na serveru kasnije
+    }
   }
 
 }
