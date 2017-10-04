@@ -19,32 +19,37 @@ export class PostsComponent implements OnInit {
 
   // pozivas servis kada se inicijalizira komponenta i potrebni su podaci, ne redi ovo unutar konstruktora
   ngOnInit() {
-    this.service.getPosts()
-    .subscribe(
-      response => {
-        this.posts = response.json();
-      }
-      // ,
-      // error => {                        // ne treba ti jer si prebacio da ovo radi globalni AppErrorHandler
-      //   throw error;
-      // }
-    );
+    this.service.getAll()
+    .subscribe(posts => this.posts = posts);
+      /* posts => {
+           this.posts = response.json(); // u data.service si odredi kakav objekt zvracas na componentu, pa nemoras tu nista raditi
+         }
+       , error => {                        // ne treba ti jer si prebacio da ovo radi globalni AppErrorHandler
+         throw error;
+        });*/
     }
 
   createPost(input: HTMLInputElement) {
     let data = { title: input.value};
+    this.posts.splice(0, 0, data); // ako tu radis, to se zove optimisctic update, ali uslucaju fail-a, moras maknuti
+
     input.value = '';
 
-    this.service.createPost(data)
-    .subscribe(
-      respones => {
+    this.service.create(data)
+    .subscribe(newPost => {
+      data['id'] = newPost.id;
+      // this.posts.splice(0, 0, data); //ako tu radis, to se zove pessimistic update
+    }
+      /*respones => {
         // console.log(respones.json());
         data['id'] = respones.json().id; // ili data.id = respones.json().id; ali onda gore data definiras kao any objekt
         // dodas u postojeci array, mada mozda bi trebao opet napraviti get
         // this.posts.push(data); // doda na kraj liste
         this.posts.splice(0, 0, data);
-      },
+      }*/,
       (error: AppError) => {
+        this.posts.splice(0, 1); // update/create nije prosao moras maknuti sto si dodao
+
         if (error instanceof BadInputError) {
           // zamislis da imas tu formu, i ako server vrati greske na formi, propagiras to na svoj form objekt
           // this.form.setErrors(error.json()); // ovo je kad primis error: Response
@@ -61,11 +66,11 @@ export class PostsComponent implements OnInit {
   updatePost(data) {
     console.log(data);
     // this.http.post(this.url, JSON.stringify(data)); // patch updejta samo dio proprtija, dok put sve
-    this.service.updatePost(data)
-    .subscribe(
-      (response: Response) => {
+    this.service.update(data)
+    .subscribe(updatedPost => console.log(updatedPost)
+      /*(response: Response) => {
         console.log(response.json());
-      },
+      }*/,
       (error: AppError) => {
         if (error instanceof NotFoundError) {
           alert('This post do not exsist on the server. - update');
@@ -76,15 +81,20 @@ export class PostsComponent implements OnInit {
     }
 
   deletePost(data) {
+    let index = this.posts.indexOf(data); // optimistic delete
+    this.posts.splice(index, 1);
+
     console.log(data);
-    this.service.deletePost(data.id)
+    this.service.delete(data.id)
     .subscribe(
-      (response: Response) => {
-        console.log(response.status);
-        let index = this.posts.indexOf(data);
-        this.posts.splice(index, 1);
+      () => {
+        console.log('deleted');
+        // let index = this.posts.indexOf(data); // pessimistic delete
+        // this.posts.splice(index, 1);
       },
       (error: AppError) => {
+        this.posts.splice(index, 0, data); // rollback - optimistic delete(slucaj kada delete nije prosao)
+
         if (error instanceof NotFoundError) {
           alert('This post do not exsist on the server. - delete');
         } else {
