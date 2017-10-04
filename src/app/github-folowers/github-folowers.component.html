@@ -1,0 +1,11 @@
+<h4>My Folowers</h4>
+
+<div class="media" *ngFor='let folower of folowers'>
+  <div class="media-left">
+    <img [src]="folower.avatar_url" class="media-object avatar">
+  </div>
+  <div class="media-body">
+    <h4 class="media-heading">{{ folower.login }}</h4>
+    <a [href]="folower.html_url">{{ folower.html_url }}</a>
+  </div>
+</div>

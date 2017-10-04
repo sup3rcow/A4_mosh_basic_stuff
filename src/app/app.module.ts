@@ -20,6 +20,8 @@ import { ChangePasswordComponent } from './change-password/change-password.compo
 import { PostsComponent } from './posts/posts.component';
 import { PostService } from './services/post.service';
 import { AppErrorHandler } from './common/app-error-handler';
+import { GithubFolowersComponent } from './github-folowers/github-folowers.component';
+import { GithubFolowersService } from './github-folowers/github-folowers.service';
 
 
 
@@ -38,7 +40,8 @@ import { AppErrorHandler } from './common/app-error-handler';
     SignupFormComponent,
     NewCourseFormArrayComponent,
     ChangePasswordComponent,
-    PostsComponent
+    PostsComponent,
+    GithubFolowersComponent
     ],
   imports: [
     BrowserModule,
@@ -50,6 +53,7 @@ import { AppErrorHandler } from './common/app-error-handler';
   providers: [
     CourseService, // registriras DI
     PostService,
+    GithubFolowersService,
     { provide: ErrorHandler, useClass: AppErrorHandler } // postavis AppErrorHandler da bude globalni error handler
   ],
   bootstrap: [AppComponent]

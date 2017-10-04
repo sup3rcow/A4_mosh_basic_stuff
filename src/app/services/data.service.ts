@@ -8,7 +8,9 @@ import 'rxjs/add/operator/map';
 import { BadInputError } from '../common/bad-input-error';
 import { NotFoundError } from '../common/not-found-error';
 import { AppError } from '../common/app-error';
+import { Injectable } from '@angular/core';
 
+@Injectable()
 export class DataService {
     // dodas keyword private i parametar postaje prvivate field i mozes ga koristiti unutar klase
     constructor(private url: string, private http: Http) {}
